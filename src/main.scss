@@ -1,0 +1,14 @@
+$one: #fef3e2 !default;
+$two: #fab12f !default;
+$three: #fa812f !default;
+$four: #fa4032 !default;
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  background-color: $one;
+}
+
+nav {
+  background-color: $four;
+}
