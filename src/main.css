@@ -10767,8 +10767,46 @@ textarea.form-control-lg {
 }
 body {
   background-color: #fef3e2;
+  font-family: "Comfortaa", sans-serif;
 }
 
-nav {
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/src/assets/font/Comfortaa-SemiBold.ttf") format("truetype");
+  font-style: normal;
+}
+.cus-btn {
   background-color: #fa4032;
-}/*# sourceMappingURL=main.css.map */
+  margin: 0.5rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 3rem;
+  padding: 0.1rem 2.5rem;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cus-btn:hover {
+  border: 1px solid #120c2e;
+  background-color: #fef3e2;
+  transform: scale(1.05);
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.cus-emblem {
+  height: 4rem;
+  width: 4rem;
+}

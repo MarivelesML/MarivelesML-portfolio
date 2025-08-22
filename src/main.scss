@@ -2,13 +2,57 @@ $one: #fef3e2 !default;
 $two: #fab12f !default;
 $three: #fa812f !default;
 $four: #fa4032 !default;
+$outline: #120c2e !default;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 body {
   background-color: $one;
+  font-family: "Comfortaa", sans-serif;
 }
 
-nav {
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/src/assets/font/Comfortaa-SemiBold.ttf") format("truetype");
+  font-style: normal;
+}
+
+@mixin cus-boderline {
+  border: 1px solid $outline;
+}
+
+.cus-btn {
   background-color: $four;
+  margin: 0.5rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 3rem;
+  padding: 0.1rem 2.5rem;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cus-btn:hover {
+  @include cus-boderline;
+  background-color: $one;
+  transform: scale(1.05);
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.cus-emblem {
+  height: 4rem;
+  width: 4rem;
 }
