@@ -10784,7 +10784,7 @@ body {
   width: 10rem;
   height: 3rem;
   padding: 0.1rem 2.5rem;
-  color: rgb(255, 255, 255);
+  color: #fef3e2;
   font-size: 16px;
   cursor: pointer;
   border-radius: 999px;
@@ -10809,4 +10809,4 @@ body {
 .cus-emblem {
   height: 4rem;
   width: 4rem;
-}
+}/*# sourceMappingURL=main.css.map */
