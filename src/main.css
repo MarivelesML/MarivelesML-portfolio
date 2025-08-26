@@ -10775,7 +10775,7 @@ body {
   src: url("/src/assets/font/Comfortaa-SemiBold.ttf") format("truetype");
   font-style: normal;
 }
-.cus-btn {
+.cus-btn-nav {
   background-color: #fa4032;
   margin: 0.5rem 2rem;
   display: inline-flex;
@@ -10791,9 +10791,12 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.cus-btn:hover {
+.cus-btn-nav:hover,
+.cus-btn-nav:focus,
+.cus-btn-nav:active {
   border: 1px solid #120c2e;
   background-color: #fef3e2;
+  color: #120c2e;
   transform: scale(1.05);
 }
 
@@ -10809,4 +10812,12 @@ body {
 .cus-emblem {
   height: 4rem;
   width: 4rem;
-}/*# sourceMappingURL=main.css.map */
+}
+
+.collapse,
+.collapse.show,
+.collapsing {
+  transition: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}

@@ -59,27 +59,68 @@
 //   ease: "power2.out",
 // });
 
-gsap.set(".cus-btn", {
-  opacity: 0,
-  y: 100,
+const mm = gsap.matchMedia();
+
+mm.add("(min-width: 768px)", () => {
+  gsap.set(".cus-btn-nav", {
+    opacity: 0,
+    y: 100,
+  });
+
+  gsap.to(".cus-btn-nav", {
+    opacity: 1,
+    y: 0,
+    duration: 1.5,
+    ease: "power2.out",
+    stagger: {
+      amount: 2.5,
+      each: 0.5,
+      from: 0,
+    },
+  });
 });
 
-gsap.to(".cus-btn", {
-  opacity: 1,
-  y: 0,
-  duration: 1.5,
-  ease: "power2.out",
-  stagger: {
-    amount: 3.5,
-    each: 0.5,
-    from: 0,
-  },
-});
+let rotationCount = 0;
 
 document.getElementById("emblem").addEventListener("click", function () {
+  rotationCount++;
   gsap.to(".cus-emblem", {
-    rotation: "+=180",
+    rotation: rotationCount * 180,
     duration: 1,
     ease: "power2.inOut",
+  });
+});
+
+const navCollapse = document.getElementById("navbarNav");
+
+navCollapse.addEventListener("show.bs.collapse", function () {
+  navCollapse.style.display = "block";
+
+  gsap.fromTo(
+    ".cus-btn-nav",
+    { opacity: 0, x: 50 },
+    {
+      opacity: 1,
+      x: 0,
+      duration: 0.7,
+      stagger: 0.2,
+      ease: "power2.out",
+    }
+  );
+});
+
+navCollapse.addEventListener("hide.bs.collapse", function (e) {
+  e.preventDefault();
+
+  gsap.to(".cus-btn-nav", {
+    opacity: 0,
+    x: -50,
+    duration: 0.7,
+    stagger: 0.1,
+    ease: "power2.in",
+    onComplete: () => {
+      navCollapse.style.display = "none";
+      navCollapse.classList.remove("show");
+    },
   });
 });
