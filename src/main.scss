@@ -58,6 +58,7 @@ body {
 .cus-emblem {
   height: 4rem;
   width: 4rem;
+  fill: $four;
 }
 
 .collapse,
@@ -66,4 +67,11 @@ body {
   transition: none !important;
   height: auto !important;
   overflow: visible !important;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: $one;
 }

@@ -5,6 +5,15 @@
 //   ease: "power2.out",
 // });
 
+window.addEventListener("load", () => {
+  window.scrollTo(0, 0);
+  ScrollTrigger.refresh();
+});
+
+window.addEventListener("resize", () => {
+  ScrollTrigger.refresh();
+});
+
 // gsap.fromTo(
 //   ".nav-left",
 //   { opacity: 0, x: -500 },
@@ -78,6 +87,47 @@ mm.add("(min-width: 768px)", () => {
       from: 0,
     },
   });
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".first-section",
+        start: "top+=50% 20%",
+        end: "bottom+=50%",
+        markers: true,
+        toggleActions: "play none none reverse",
+      },
+    })
+    .to(
+      ".nav-left",
+      {
+        x: 224,
+        duration: 1.5,
+        ease: "power2.out",
+        opacity: 0,
+        display: "none",
+      },
+      0
+    )
+    .to(
+      ".nav-right",
+      {
+        x: -224,
+        duration: 1.5,
+        ease: "power2.out",
+        opacity: 0,
+        display: "none",
+      },
+      0
+    )
+    .to(
+      ".nav-center-icon circle",
+      {
+        r: 10, // shrink circle
+        fill: "#000",
+      },
+      1
+    );
 });
 
 let rotationCount = 0;
@@ -95,7 +145,6 @@ const navCollapse = document.getElementById("navbarNav");
 
 navCollapse.addEventListener("show.bs.collapse", function () {
   navCollapse.style.display = "block";
-
   gsap.fromTo(
     ".cus-btn-nav",
     { opacity: 0, x: 50 },
@@ -111,7 +160,6 @@ navCollapse.addEventListener("show.bs.collapse", function () {
 
 navCollapse.addEventListener("hide.bs.collapse", function (e) {
   e.preventDefault();
-
   gsap.to(".cus-btn-nav", {
     opacity: 0,
     x: -50,
@@ -124,3 +172,63 @@ navCollapse.addEventListener("hide.bs.collapse", function (e) {
     },
   });
 });
+
+//       [1]                   [2]                      [3]                  [4]
+// (Enter viewport)  (Forward past the viewport)  (Come back's in)   (The way past the start)
+
+// start: "top(Trigger Element) 80%(View Port)", when the top of the trigger hits 80% of the viewport height
+
+gsap.registerPlugin(ScrollTrigger);
+
+// gsap.to(".nav-right", {
+//   scrollTrigger: {
+//     trigger: ".nav-right",
+//     start: "50px 50%",
+//     end: "500px 50%",
+//     markers: true,
+//     toggleActions: "play none none reverse",
+//   },
+//   x: -224,
+//   duration: 1,
+// });
+
+// gsap.to(".nav-left", {
+//   scrollTrigger: {
+//     trigger: ".first-section",
+//     start: "top+=200 20%",
+//     markers: true,
+//     toggleActions: "play none none reverse",
+//   },
+//   x: 224,
+//   duration: 1,
+// });
+
+// const tl = gsap.timeline({
+//   scrollTrigger: {
+//     trigger: ".first-section",
+//     start: "top+=200 20%",
+//     markers: true,
+//     toggleActions: "play none none reverse",
+//   }
+// });
+
+// // Animation 1: Move .nav-left
+// tl.to(".nav-left", {
+//   x: 224,
+//   duration: 1,
+//   ease: "power2.out"
+// });
+
+// // Animation 2: Fade in .nav-right
+// tl.to(".nav-right", {
+//   opacity: 1,
+//   duration: 1,
+//   ease: "power1.inOut"
+// }, "-=0.5"); // overlaps with previous animation
+
+// // Animation 3: Scale .nav-right
+// tl.to(".nav-right", {
+//   scale: 1.2,
+//   duration: 0.8,
+//   ease: "elastic.out(1, 0.3)"
+// });
