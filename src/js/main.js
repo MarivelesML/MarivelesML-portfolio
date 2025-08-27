@@ -5,13 +5,24 @@
 //   ease: "power2.out",
 // });
 
-window.addEventListener("load", () => {
-  window.scrollTo(0, 0);
-  ScrollTrigger.refresh();
+//Remove-Item *.tif
+// // Get-ChildItem frame_*.tif | ForEach-Object {
+//     magick $_.FullName "$($_.BaseName).jpg"
+// }
+
+gsap.registerPlugin(ScrollTrigger);
+
+window.addEventListener("pageshow", (e) => {
+  if (
+    e.persisted ||
+    performance.getEntriesByType("navigation")[0].type === "reload"
+  ) {
+    window.scrollTo(0, 0);
+  }
 });
 
-window.addEventListener("resize", () => {
-  ScrollTrigger.refresh();
+ScrollTrigger.addEventListener("refreshInit", () => {
+  console.log("ScrollTrigger refresh triggered");
 });
 
 // gsap.fromTo(
@@ -88,46 +99,49 @@ mm.add("(min-width: 768px)", () => {
     },
   });
 
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: ".first-section",
-        start: "top+=50% 20%",
-        end: "bottom+=50%",
-        markers: true,
-        toggleActions: "play none none reverse",
-      },
-    })
-    .to(
-      ".nav-left",
-      {
-        x: 224,
-        duration: 1.5,
-        ease: "power2.out",
-        opacity: 0,
-        display: "none",
-      },
-      0
-    )
-    .to(
-      ".nav-right",
-      {
-        x: -224,
-        duration: 1.5,
-        ease: "power2.out",
-        opacity: 0,
-        display: "none",
-      },
-      0
-    )
-    .to(
-      ".nav-center-icon circle",
-      {
-        r: 10, // shrink circle
-        fill: "#000",
-      },
-      1
-    );
+  // gsap
+  //   .timeline({
+  //     scrollTrigger: {
+  //       trigger: ".first-section",
+  //       start: "top+=50% 20%",
+  //       end: "bottom+=50%",
+  //       markers: true,
+  //       toggleActions: "play none none reverse",
+  //       onLeaveBack: () => {
+  //         gsap.set([".nav-left", ".nav-right"], { autoAlpha: 1, x: 0 });
+  //       },
+  //     },
+  //   })
+  //   .to(
+  //     ".nav-left",
+  //     {
+  //       x: 224,
+  //       duration: 1.5,
+  //       ease: "power2.out",
+  //       opacity: 0,
+  //       autoAlpha: 0,
+  //     },
+  //     0
+  //   )
+  //   .to(
+  //     ".nav-right",
+  //     {
+  //       x: -224,
+  //       duration: 1.5,
+  //       ease: "power2.out",
+  //       opacity: 0,
+  //       autoAlpha: 0,
+  //     },
+  //     0
+  //   )
+  //   .to(
+  //     ".nav-center",
+  //     {
+  //       text: "TOP",
+  //       ease: "power2.out",
+  //     },
+  //     1
+  //   );
 });
 
 let rotationCount = 0;
@@ -177,8 +191,6 @@ navCollapse.addEventListener("hide.bs.collapse", function (e) {
 // (Enter viewport)  (Forward past the viewport)  (Come back's in)   (The way past the start)
 
 // start: "top(Trigger Element) 80%(View Port)", when the top of the trigger hits 80% of the viewport height
-
-gsap.registerPlugin(ScrollTrigger);
 
 // gsap.to(".nav-right", {
 //   scrollTrigger: {

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bootstrap": "^5.2.3",
-    "gsap": "^3.13.0"
+    "gsap": "^3.13.0",
+    "tech-stack-icons": "^3.3.2"
   }
 }
