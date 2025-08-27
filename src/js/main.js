@@ -10,20 +10,20 @@
 //     magick $_.FullName "$($_.BaseName).jpg"
 // }
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
-window.addEventListener("pageshow", (e) => {
-  if (
-    e.persisted ||
-    performance.getEntriesByType("navigation")[0].type === "reload"
-  ) {
-    window.scrollTo(0, 0);
-  }
-});
+// window.addEventListener("pageshow", (e) => {
+//   if (
+//     e.persisted ||
+//     performance.getEntriesByType("navigation")[0].type === "reload"
+//   ) {
+//     window.scrollTo(0, 0);
+//   }
+// });
 
-ScrollTrigger.addEventListener("refreshInit", () => {
-  console.log("ScrollTrigger refresh triggered");
-});
+// ScrollTrigger.addEventListener("refreshInit", () => {
+//   console.log("ScrollTrigger refresh triggered");
+// });
 
 // gsap.fromTo(
 //   ".nav-left",
@@ -79,113 +79,149 @@ ScrollTrigger.addEventListener("refreshInit", () => {
 //   ease: "power2.out",
 // });
 
-const mm = gsap.matchMedia();
+// const mm = gsap.matchMedia();
 
-mm.add("(min-width: 768px)", () => {
-  gsap.set(".cus-btn-nav", {
-    opacity: 0,
-    y: 100,
-  });
+// mm.add("(min-width: 768px)", () => {
+//   gsap.set(".cus-btn-nav", {
+//     opacity: 0,
+//     y: 100,
+//   });
 
-  gsap.to(".cus-btn-nav", {
-    opacity: 1,
-    y: 0,
-    duration: 1.5,
-    ease: "power2.out",
-    stagger: {
-      amount: 2.5,
-      each: 0.5,
-      from: 0,
-    },
-  });
+//   gsap.to(".cus-btn-nav", {
+//     opacity: 1,
+//     y: 0,
+//     duration: 1.5,
+//     ease: "power2.out",
+//     stagger: {
+//       amount: 2.5,
+//       each: 0.5,
+//       from: 0,
+//     },
+//   });
 
-  // gsap
-  //   .timeline({
-  //     scrollTrigger: {
-  //       trigger: ".first-section",
-  //       start: "top+=50% 20%",
-  //       end: "bottom+=50%",
-  //       markers: true,
-  //       toggleActions: "play none none reverse",
-  //       onLeaveBack: () => {
-  //         gsap.set([".nav-left", ".nav-right"], { autoAlpha: 1, x: 0 });
-  //       },
-  //     },
-  //   })
-  //   .to(
-  //     ".nav-left",
-  //     {
-  //       x: 224,
-  //       duration: 1.5,
-  //       ease: "power2.out",
-  //       opacity: 0,
-  //       autoAlpha: 0,
-  //     },
-  //     0
-  //   )
-  //   .to(
-  //     ".nav-right",
-  //     {
-  //       x: -224,
-  //       duration: 1.5,
-  //       ease: "power2.out",
-  //       opacity: 0,
-  //       autoAlpha: 0,
-  //     },
-  //     0
-  //   )
-  //   .to(
-  //     ".nav-center",
-  //     {
-  //       text: "TOP",
-  //       ease: "power2.out",
-  //     },
-  //     1
-  //   );
-});
+//   // gsap
+//   //   .timeline({
+//   //     scrollTrigger: {
+//   //       trigger: ".first-section",
+//   //       start: "top+=50% 20%",
+//   //       end: "bottom+=50%",
+//   //       markers: true,
+//   //       toggleActions: "play none none reverse",
+//   //       onLeaveBack: () => {
+//   //         gsap.set([".nav-left", ".nav-right"], { autoAlpha: 1, x: 0 });
+//   //       },
+//   //     },
+//   //   })
+//   //   .to(
+//   //     ".nav-left",
+//   //     {
+//   //       x: 224,
+//   //       duration: 1.5,
+//   //       ease: "power2.out",
+//   //       opacity: 0,
+//   //       autoAlpha: 0,
+//   //     },
+//   //     0
+//   //   )
+//   //   .to(
+//   //     ".nav-right",
+//   //     {
+//   //       x: -224,
+//   //       duration: 1.5,
+//   //       ease: "power2.out",
+//   //       opacity: 0,
+//   //       autoAlpha: 0,
+//   //     },
+//   //     0
+//   //   )
+//   //   .to(
+//   //     ".nav-center",
+//   //     {
+//   //       text: "TOP",
+//   //       ease: "power2.out",
+//   //     },
+//   //     1
+//   //   );
+// });
 
-let rotationCount = 0;
+// gsap.registerPlugin(ScrollTrigger);
 
-document.getElementById("emblem").addEventListener("click", function () {
-  rotationCount++;
-  gsap.to(".cus-emblem", {
-    rotation: rotationCount * 180,
-    duration: 1,
-    ease: "power2.inOut",
-  });
-});
+// window.addEventListener("pageshow", (e) => {
+//   if (
+//     e.persisted ||
+//     performance.getEntriesByType("navigation")[0].type === "reload"
+//   ) {
+//     window.scrollTo(0, 0);
+//   }
+// });
 
-const navCollapse = document.getElementById("navbarNav");
+// ScrollTrigger.addEventListener("refreshInit", () => {
+//   console.log("ScrollTrigger refresh triggered");
+// });
 
-navCollapse.addEventListener("show.bs.collapse", function () {
-  navCollapse.style.display = "block";
-  gsap.fromTo(
-    ".cus-btn-nav",
-    { opacity: 0, x: 50 },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 0.7,
-      stagger: 0.2,
-      ease: "power2.out",
-    }
-  );
-});
+// const mm = gsap.matchMedia();
 
-navCollapse.addEventListener("hide.bs.collapse", function (e) {
-  e.preventDefault();
-  gsap.to(".cus-btn-nav", {
-    opacity: 0,
-    x: -50,
-    duration: 0.7,
-    stagger: 0.1,
-    ease: "power2.in",
-    onComplete: () => {
-      navCollapse.style.display = "none";
-      navCollapse.classList.remove("show");
-    },
-  });
-});
+// mm.add("(min-width: 768px)", () => {
+//   gsap.set(".cus-btn-nav", {
+//     opacity: 0,
+//     y: 100,
+//   });
+
+//   gsap.to(".cus-btn-nav", {
+//     opacity: 1,
+//     y: 0,
+//     duration: 1.5,
+//     ease: "power2.out",
+//     stagger: {
+//       amount: 2.5,
+//       each: 0.5,
+//       from: 0,
+//     },
+//   });
+// });
+
+// let rotationCount = 0;
+
+// document.getElementById("emblem").addEventListener("click", function () {
+//   rotationCount++;
+//   gsap.to(".cus-emblem", {
+//     rotation: rotationCount * 180,
+//     duration: 1,
+//     ease: "power2.inOut",
+//   });
+// });
+
+// const navCollapse = document.getElementById("navbarNav");
+
+// navCollapse.addEventListener("show.bs.collapse", function () {
+//   navCollapse.style.display = "block";
+//   gsap.fromTo(
+//     ".cus-btn-nav",
+//     { opacity: 0, x: 50 },
+//     {
+//       opacity: 1,
+//       x: 0,
+//       duration: 0.7,
+//       stagger: 0.2,
+//       ease: "power2.out",
+//     }
+//   );
+// });
+
+// navCollapse.addEventListener("hide.bs.collapse", function (e) {
+//   e.preventDefault();
+//   gsap.to(".cus-btn-nav", {
+//     opacity: 0,
+//     x: -50,
+//     duration: 0.7,
+//     stagger: 0.1,
+//     ease: "power2.in",
+//     onComplete: () => {
+//       navCollapse.style.display = "none";
+//       navCollapse.classList.remove("show");
+//     },
+//   });
+// });
 
 //       [1]                   [2]                      [3]                  [4]
 // (Enter viewport)  (Forward past the viewport)  (Come back's in)   (The way past the start)
@@ -244,3 +280,99 @@ navCollapse.addEventListener("hide.bs.collapse", function (e) {
 //   duration: 0.8,
 //   ease: "elastic.out(1, 0.3)"
 // });
+
+document.addEventListener("DOMContentLoaded", () => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener("pageshow", (e) => {
+    if (
+      e.persisted ||
+      performance.getEntriesByType("navigation")[0].type === "reload"
+    ) {
+      window.scrollTo(0, 0);
+    }
+  });
+
+  ScrollTrigger.addEventListener("refreshInit", () => {
+    console.log("ScrollTrigger refresh triggered");
+  });
+
+  const mm = gsap.matchMedia();
+
+  mm.add("(min-width: 768px)", () => {
+    gsap.set(".cus-btn-nav", {
+      opacity: 0,
+      y: 100,
+    });
+
+    gsap.to(".cus-btn-nav", {
+      opacity: 1,
+      y: 0,
+      duration: 1.5,
+      ease: "power2.out",
+      stagger: {
+        amount: 2.5,
+        each: 0.5,
+        from: 0,
+      },
+    });
+  });
+
+  let rotationCount = 0;
+
+  document.getElementById("emblem").addEventListener("click", function () {
+    rotationCount++;
+    gsap.to(".cus-emblem", {
+      rotation: rotationCount * 180,
+      duration: 1,
+      ease: "power2.inOut",
+    });
+  });
+
+  const navCollapse = document.getElementById("navbarNav");
+
+  navCollapse.addEventListener("show.bs.collapse", function () {
+    navCollapse.style.display = "block";
+    gsap.fromTo(
+      ".cus-btn-nav",
+      { opacity: 0, x: 50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.7,
+        stagger: 0.2,
+        ease: "power2.out",
+      }
+    );
+  });
+
+  navCollapse.addEventListener("hide.bs.collapse", function (e) {
+    e.preventDefault();
+    gsap.to(".cus-btn-nav", {
+      opacity: 0,
+      x: -50,
+      duration: 0.7,
+      stagger: 0.1,
+      ease: "power2.in",
+      onComplete: () => {
+        navCollapse.style.display = "none";
+        navCollapse.classList.remove("show");
+      },
+    });
+  });
+
+  const lenis = new Lenis();
+
+  lenis.on("scroll", ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+
+  const nav = document.querySelector("nav");
+  const header = document.querySelector(".header");
+  const heroImg = document.querySelector(".hero-image");
+  const canvas = document.querySelector("canvas");
+  const context = canvas.getContext("2d");
+});
