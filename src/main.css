@@ -10798,6 +10798,20 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+nav.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  padding: 1.5rem 2rem;
+  background: transparent;
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+  box-shadow: none;
+  border: none !important;
+  z-index: 2;
+}
+
 .cus-btn-nav:hover,
 .cus-btn-nav:focus,
 .cus-btn-nav:active {
@@ -10828,12 +10842,6 @@ body {
   transition: none !important;
   height: auto !important;
   overflow: visible !important;
-}
-
-.navbar {
-  top: 0;
-  z-index: 1000;
-  background: #fef3e2;
 }
 
 img {
@@ -10872,6 +10880,7 @@ canvas {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  z-index: 1;
 }
 
 .hero-content {

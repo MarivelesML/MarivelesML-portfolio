@@ -6,6 +6,7 @@
 // });
 
 //Remove-Item *.tif
+
 // // Get-ChildItem frame_*.tif | ForEach-Object {
 //     magick $_.FullName "$($_.BaseName).jpg"
 // }
@@ -375,4 +376,82 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroImg = document.querySelector(".hero-image");
   const canvas = document.querySelector("canvas");
   const context = canvas.getContext("2d");
+
+  const setCanvasSize = () => {
+    const pixelRatio = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * pixelRatio;
+    canvas.height = window.innerHeight * pixelRatio;
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+    context.scale(pixelRatio, pixelRatio);
+  };
+  setCanvasSize();
+
+  const frameCount = 347;
+  const currentFrame = (index) =>
+    `frames/frame_${(index + 1).toString().padStart(4, "0")}.jpg`;
+
+  let images = [];
+  let imageSeq = {
+    frame: 0,
+  };
+
+  let imagesToLoad = frameCount;
+
+  const onLoad = () => {
+    imagesToLoad--;
+    if (!imagesToLoad) {
+      render();
+      setupScrollTrigger();
+    }
+  };
+
+  for (let i = 0; i < frameCount; i++) {
+    const img = new Image();
+    img.onload = onLoad;
+    img.onerror = function () {
+      onLoad.call(this);
+    };
+    img.src = currentFrame(i);
+    images.push(img);
+  }
+
+  const render = () => {
+    const canvasWidth = window.innerWidth;
+    const canvasHeight = window.innerHeight;
+
+    context.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    const img = images[imageSeq.frame];
+    if (img && img.complete && img.naturalWidth > 0) {
+      const imgesAspect = img.naturalWidth / img.naturalHeight;
+      const canvasAspect = canvasWidth / canvasHeight;
+      let drawWidth, drawHeight, drawX, drawY;
+
+      if (imgesAspect > canvasAspect) {
+        drawHeight = canvasHeight;
+        drawWidth = imgesAspect * drawHeight;
+        drawX = (canvasWidth - drawWidth) / 2;
+        drawY = 0;
+      } else {
+        drawWidth = canvasWidth;
+        drawHeight = drawWidth / imgesAspect;
+        drawX = 0;
+        drawY = (canvasHeight - drawHeight) / 2;
+      }
+
+      context.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+    }
+  };
+
+  const setupScrollTrigger = () => {
+    ScrollTrigger.create({
+      trigger: ".hero",
+      start: "top top",
+      end: `+=${window.innerHeight * 7}px`,
+      pin: true,
+      pinSpacing: true,
+      scrub: 1,
+    });
+  };
 });
