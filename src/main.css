@@ -10893,9 +10893,9 @@ canvas {
   padding: 0.5rem 0;
 }
 
-header {
+.header {
   position: absolute;
-  top: 50%;
+  top: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100vw;
@@ -10908,19 +10908,16 @@ header {
   will-change: transform, opacity;
 }
 
-header h1, header .h1 {
+.header h1, .header .h1 {
   width: 50%;
   margin-bottom: 0.5rem;
-}
-
-header p {
-  opacity: 0.35;
+  font-weight: bolder;
 }
 
 .tech-logos {
   display: flex;
   gap: 0.5rem;
-  width: 100%;
+  width: 30%;
 }
 
 .tech-logos .tech-logos {
@@ -10952,7 +10949,7 @@ header p {
 
 @media (max-width: 1000px) {
   h1, .h1 {
-    font-size: 3.5rem;
+    font-size: 2rem;
   }
   header h1, header .h1,
   .tech-logos,

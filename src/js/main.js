@@ -362,14 +362,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const lenis = new Lenis();
+  // const lenis = new Lenis();
+  // lenis.on("scroll", ScrollTrigger.update);
+  // gsap.ticker.add((time) => {
+  //   lenis.raf(time * 500);
+  // });
 
-  lenis.on("scroll", ScrollTrigger.update);
-
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
+  // gsap.ticker.lagSmoothing(0);
 
   const nav = document.querySelector("nav");
   const header = document.querySelector(".header");
@@ -387,7 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   setCanvasSize();
 
-  const frameCount = 347;
+  const frameCount = 209;
   const currentFrame = (index) =>
     `frames/frame_${(index + 1).toString().padStart(4, "0")}.jpg`;
 
@@ -451,7 +450,42 @@ document.addEventListener("DOMContentLoaded", () => {
       end: `+=${window.innerHeight * 7}px`,
       pin: true,
       pinSpacing: true,
-      scrub: 1,
+      scrub: true,
+      onUpdate: (self) => {
+        const progress = self.progress;
+
+        const animationProgress = Math.min(progress / 0.9, 1);
+        const targetFrame = Math.round(animationProgress * (frameCount - 1));
+        imageSeq.frame = targetFrame;
+
+        render();
+
+        if (progress <= 0.1) {
+          const navProgress = progress / 0.1;
+          const opacity = 1 - navProgress;
+          gsap.set(nav, { opacity });
+        } else {
+          gsap.set(nav, { opacity: 0 });
+        }
+
+        if (progress <= 0.25) {
+          const zProgress = progress / 0.25;
+          const translateZ = zProgress * -500;
+
+          let opacity = 1;
+          if (progress >= 0.2) {
+            const fadeProgress = Math.min((progress - 0.2) / (0.25 - 0.2), 1);
+            opacity = 1 - fadeProgress;
+          }
+
+          gsap.set(header, {
+            transform: `translate(-50%, -40%) translateZ(${translateZ}px)`,
+            opacity,
+          });
+        } else {
+          gsap.set(header, { opacity: 0 });
+        }
+      },
     });
   };
 });
