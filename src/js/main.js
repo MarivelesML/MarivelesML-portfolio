@@ -304,6 +304,39 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo(0, 0);
     }
   });
+  // -----------------------------
+  // Text-Animation
+  // -----------------------------
+
+  document.querySelectorAll("[text-split]").forEach((el) => {
+    new SplitType(el, {
+      types: "words, chars",
+      tagName: "span",
+    });
+  });
+
+  document.querySelectorAll("[words-rotate-in]").forEach((el) => {
+    let tl = gsap.timeline({ paused: true });
+    tl.from(el.querySelectorAll(".word"), {
+      opacity: 0,
+      yPercent: 100,
+      duration: 0.5,
+      ease: "back.out(2)",
+      stagger: { amount: 0.5 },
+    });
+
+    createScrollTrigger(el, tl);
+  });
+
+  function createScrollTrigger(triggerElement, timeline) {
+    ScrollTrigger.create({
+      trigger: triggerElement,
+      start: "top bottom",
+      onLeaveBack: () => {
+        timeline.pro;
+      },
+    });
+  }
 
   // -----------------------------
   // GSAP media queries
