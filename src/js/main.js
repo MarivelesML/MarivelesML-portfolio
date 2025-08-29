@@ -282,9 +282,20 @@
 //   ease: "elastic.out(1, 0.3)"
 // });
 
+// const lenis = new Lenis();
+// lenis.on("scroll", ScrollTrigger.update);
+// gsap.ticker.add((time) => {
+//   lenis.raf(time * 500);
+// });
+
+// gsap.ticker.lagSmoothing(0);
+
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
 
+  // -----------------------------
+  // Page reload reset scroll
+  // -----------------------------
   window.addEventListener("pageshow", (e) => {
     if (
       e.persisted ||
@@ -294,34 +305,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  ScrollTrigger.addEventListener("refreshInit", () => {
-    console.log("ScrollTrigger refresh triggered");
-  });
-
+  // -----------------------------
+  // GSAP media queries
+  // -----------------------------
   const mm = gsap.matchMedia();
 
   mm.add("(min-width: 768px)", () => {
-    gsap.set(".cus-btn-nav", {
-      opacity: 0,
-      y: 100,
-    });
-
+    gsap.set(".cus-btn-nav", { opacity: 0, y: 100 });
     gsap.to(".cus-btn-nav", {
       opacity: 1,
       y: 0,
       duration: 1.5,
       ease: "power2.out",
-      stagger: {
-        amount: 2.5,
-        each: 0.5,
-        from: 0,
-      },
+      stagger: { amount: 2.5, each: 0.5, from: 0 },
     });
   });
 
+  // -----------------------------
+  // Emblem rotation
+  // -----------------------------
   let rotationCount = 0;
-
-  document.getElementById("emblem").addEventListener("click", function () {
+  const emblem = document.getElementById("emblem");
+  emblem.addEventListener("click", () => {
     rotationCount++;
     gsap.to(".cus-emblem", {
       rotation: rotationCount * 180,
@@ -330,24 +335,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // -----------------------------
+  // Navbar collapse animation
+  // -----------------------------
   const navCollapse = document.getElementById("navbarNav");
-
-  navCollapse.addEventListener("show.bs.collapse", function () {
+  navCollapse.addEventListener("show.bs.collapse", () => {
     navCollapse.style.display = "block";
     gsap.fromTo(
       ".cus-btn-nav",
       { opacity: 0, x: 50 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.7,
-        stagger: 0.2,
-        ease: "power2.out",
-      }
+      { opacity: 1, x: 0, duration: 0.7, stagger: 0.2, ease: "power2.out" }
     );
   });
 
-  navCollapse.addEventListener("hide.bs.collapse", function (e) {
+  navCollapse.addEventListener("hide.bs.collapse", (e) => {
     e.preventDefault();
     gsap.to(".cus-btn-nav", {
       opacity: 0,
@@ -362,44 +363,48 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // const lenis = new Lenis();
-  // lenis.on("scroll", ScrollTrigger.update);
-  // gsap.ticker.add((time) => {
-  //   lenis.raf(time * 500);
-  // });
-
-  // gsap.ticker.lagSmoothing(0);
-
-  const nav = document.querySelector("nav");
-  const header = document.querySelector(".header");
-  const heroImg = document.querySelector(".hero-image");
+  // -----------------------------
+  // Canvas hero image sequence
+  // -----------------------------
   const canvas = document.querySelector("canvas");
   const context = canvas.getContext("2d");
+  const heroImg = document.querySelector(".hero-img");
+  const nav = document.querySelector("nav");
+  const header = document.querySelector(".header");
 
+  const frameCount = 209;
+  const images = [];
+  let imagesToLoad = frameCount;
+  const imageSeq = { frame: 0 };
+
+  const currentFrame = (index) =>
+    `frames/frame_${(index + 1).toString().padStart(4, "0")}.jpg`;
+
+  // -----------------------------
+  // Canvas setup & resize
+  // -----------------------------
   const setCanvasSize = () => {
     const pixelRatio = window.devicePixelRatio || 1;
     canvas.width = window.innerWidth * pixelRatio;
     canvas.height = window.innerHeight * pixelRatio;
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
     context.scale(pixelRatio, pixelRatio);
   };
   setCanvasSize();
 
-  const frameCount = 209;
-  const currentFrame = (index) =>
-    `frames/frame_${(index + 1).toString().padStart(4, "0")}.jpg`;
+  window.addEventListener("resize", () => {
+    setCanvasSize();
+    render();
+    ScrollTrigger.refresh();
+  });
 
-  let images = [];
-  let imageSeq = {
-    frame: 0,
-  };
-
-  let imagesToLoad = frameCount;
-
+  // -----------------------------
+  // Load images
+  // -----------------------------
   const onLoad = () => {
     imagesToLoad--;
-    if (!imagesToLoad) {
+    if (imagesToLoad === 0) {
       render();
       setupScrollTrigger();
     }
@@ -408,83 +413,83 @@ document.addEventListener("DOMContentLoaded", () => {
   for (let i = 0; i < frameCount; i++) {
     const img = new Image();
     img.onload = onLoad;
-    img.onerror = function () {
-      onLoad.call(this);
-    };
+    img.onerror = onLoad;
     img.src = currentFrame(i);
     images.push(img);
   }
 
+  // -----------------------------
+  // Render current frame
+  // -----------------------------
   const render = () => {
-    const canvasWidth = window.innerWidth;
-    const canvasHeight = window.innerHeight;
-
-    context.clearRect(0, 0, canvasWidth, canvasHeight);
+    const cw = window.innerWidth;
+    const ch = window.innerHeight;
+    context.clearRect(0, 0, cw, ch);
 
     const img = images[imageSeq.frame];
-    if (img && img.complete && img.naturalWidth > 0) {
-      const imgesAspect = img.naturalWidth / img.naturalHeight;
-      const canvasAspect = canvasWidth / canvasHeight;
-      let drawWidth, drawHeight, drawX, drawY;
+    if (!img || !img.complete || img.naturalWidth === 0) return;
 
-      if (imgesAspect > canvasAspect) {
-        drawHeight = canvasHeight;
-        drawWidth = imgesAspect * drawHeight;
-        drawX = (canvasWidth - drawWidth) / 2;
-        drawY = 0;
-      } else {
-        drawWidth = canvasWidth;
-        drawHeight = drawWidth / imgesAspect;
-        drawX = 0;
-        drawY = (canvasHeight - drawHeight) / 2;
-      }
+    const imgAspect = img.naturalWidth / img.naturalHeight;
+    const canvasAspect = cw / ch;
+    let drawWidth, drawHeight, drawX, drawY;
 
-      context.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+    if (imgAspect > canvasAspect) {
+      drawHeight = ch;
+      drawWidth = imgAspect * drawHeight;
+      drawX = (cw - drawWidth) / 2;
+      drawY = 0;
+    } else {
+      drawWidth = cw;
+      drawHeight = drawWidth / imgAspect;
+      drawX = 0;
+      drawY = (ch - drawHeight) / 2;
     }
+
+    context.drawImage(img, drawX, drawY, drawWidth, drawHeight);
   };
 
+  // -----------------------------
+  // ScrollTrigger setup
+  // -----------------------------
   const setupScrollTrigger = () => {
     ScrollTrigger.create({
       trigger: ".hero",
       start: "top top",
       end: `+=${window.innerHeight * 7}px`,
       pin: true,
-      pinSpacing: true,
       scrub: true,
       onUpdate: (self) => {
         const progress = self.progress;
-
-        const animationProgress = Math.min(progress / 0.9, 1);
-        const targetFrame = Math.round(animationProgress * (frameCount - 1));
-        imageSeq.frame = targetFrame;
-
+        imageSeq.frame = Math.round(
+          Math.min(progress / 0.9, 1) * (frameCount - 1)
+        );
         render();
 
-        if (progress <= 0.1) {
-          const navProgress = progress / 0.1;
-          const opacity = 1 - navProgress;
-          gsap.set(nav, { opacity });
-        } else {
-          gsap.set(nav, { opacity: 0 });
-        }
+        // Navbar fade
+        gsap.set(nav, { opacity: progress <= 0.1 ? 1 - progress / 0.1 : 0 });
 
+        // Header transform + fade
         if (progress <= 0.25) {
-          const zProgress = progress / 0.25;
-          const translateZ = zProgress * -500;
-
-          let opacity = 1;
-          if (progress >= 0.2) {
-            const fadeProgress = Math.min((progress - 0.2) / (0.25 - 0.2), 1);
-            opacity = 1 - fadeProgress;
-          }
-
+          const z = (progress / 0.25) * -500;
+          const opacity = progress >= 0.2 ? 1 - (progress - 0.2) / 0.05 : 1;
           gsap.set(header, {
-            transform: `translate(-50%, -40%) translateZ(${translateZ}px)`,
+            transform: `translate(-50%, -40%) translateZ(${z}px)`,
             opacity,
           });
-        } else {
-          gsap.set(header, { opacity: 0 });
-        }
+        } else gsap.set(header, { opacity: 0 });
+
+        // Hero image transform + fade
+        if (progress < 0.6) {
+          gsap.set(heroImg, { transform: "translateZ(1000px)", opacity: 0 });
+        } else if (progress < 0.9) {
+          const imgProgress = (progress - 0.6) / 0.3;
+          const translateZ = 1000 - imgProgress * 1000;
+          const opacity = progress <= 0.8 ? (progress - 0.6) / 0.2 : 1;
+          gsap.set(heroImg, {
+            transform: `translateZ(${translateZ}px)`,
+            opacity,
+          });
+        } else gsap.set(heroImg, { transform: "translateZ(0px)", opacity: 1 });
       },
     });
   };

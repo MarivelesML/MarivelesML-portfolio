@@ -3,6 +3,8 @@ $two: #fab12f !default;
 $three: #fa812f !default;
 $four: #fa4032 !default;
 $outline: #120c2e !default;
+$navbar-height: 80px;
+$nav-header-gap: 40px;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
@@ -28,22 +30,6 @@ body {
   scroll-behavior: smooth;
 }
 
-.cus-btn-nav {
-  background-color: $four;
-  margin: 0.5rem 2rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 10rem;
-  height: 3rem;
-  padding: 0.1rem 2.5rem;
-  color: $one;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 999px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
 nav.navbar {
   position: fixed;
   top: 0;
@@ -51,42 +37,61 @@ nav.navbar {
   width: 100vw;
   padding: 1.5rem 2rem;
   background: transparent;
-  backdrop-filter: none;
   box-shadow: none;
   border: none !important;
   z-index: 2;
-}
 
-.cus-btn-nav:hover,
-.cus-btn-nav:focus,
-.cus-btn-nav:active {
-  @include cus-boderline;
-  background-color: $one;
-  color: $outline;
-  transform: scale(1.05);
-}
+  .navbar-toggler {
+    border: none;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
 
-.navbar-toggler {
-  border: none;
-}
+  .cus-emblem {
+    height: 4rem;
+    width: 4rem;
+    fill: $four;
+  }
 
-.navbar-toggler:focus {
-  outline: none;
-  box-shadow: none;
-}
+  .collapse,
+  .collapse.show,
+  .collapsing {
+    transition: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
 
-.cus-emblem {
-  height: 4rem;
-  width: 4rem;
-  fill: $four;
-}
+  .navbar-nav {
+    margin: 0 auto;
+    .nav-item {
+      .cus-btn-nav {
+        background-color: $four;
+        margin: 0.5rem 2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 10rem;
+        height: 3rem;
+        padding: 0.1rem 2.5rem;
+        color: $one;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 999px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
 
-.collapse,
-.collapse.show,
-.collapsing {
-  transition: none !important;
-  height: auto !important;
-  overflow: visible !important;
+        &:hover,
+        &:focus,
+        &:active {
+          @include cus-boderline;
+          background-color: $one;
+          color: $outline;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
 }
 
 img {
@@ -130,18 +135,12 @@ canvas {
   top: 25%;
   left: 50%;
   transform: translate(-50%);
-  transform-style: preserve-3d;
   perspective: 1000px;
   padding: 0.5rem 0;
 }
 
-@mixin dont-blend {
-  border-radius: 0.5rem;
-  background-color: rgba($one, 0.5);
-  padding: 1rem;
-}
-
 .header {
+  margin-top: calc(#{$navbar-height} + #{$nav-header-gap});
   position: absolute;
   top: 100%;
   left: 50%;
@@ -154,47 +153,68 @@ canvas {
   text-align: center;
   transform-origin: center;
   will-change: transform, opacity;
+
+  .header-bg h1 {
+    width: 100%;
+    margin: 0;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    text-align: center;
+  }
+
+  p {
+  }
 }
 
-.header h1 {
-  width: 50%;
-  margin-bottom: 0.5rem;
-  font-weight: bolder;
-}
-
-.header p {
+.header-bg {
+  border-radius: 0.5rem;
+  background-color: rgba($one, 0.7);
+  padding: 2rem 3rem;
+  width: 80%;
+  max-width: 800px;
+  min-width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .tech-logos {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 0.5rem;
-  width: 30%;
-}
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 
-.tech-logos .tech-logos {
-  flex: 1;
-}
-
-.tech-logos .tech-logos img {
-  object-fit: contain;
+  .tech-logos {
+    flex: 1;
+    img {
+      object-fit: contain;
+    }
+  }
 }
 
 .hero-img-container {
   position: absolute;
   top: 50%;
-  bottom: 50%;
-  transform: translateX(-50%, -50%);
-  transform-style: preserve-3d;
+  left: 50%;
+  width: 60vw;
+  height: 60vh;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   perspective: 1000px;
-}
 
-.hero-img {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform: translate(1000px);
-  opacity: 0;
-  will-change: transform, opacity;
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -202,9 +222,12 @@ canvas {
     font-size: 2rem;
   }
 
-  header h1,
-  .tech-logos,
-  .hero-img-container {
-    width: calc(100% - 4rem);
+  .header .header-bg {
+    width: calc(100% - 2rem);
+  }
+
+  .tech-logos {
+    max-width: 100%;
+    gap: 0.5rem;
   }
 }
