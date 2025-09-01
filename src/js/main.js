@@ -308,6 +308,29 @@ document.addEventListener("DOMContentLoaded", () => {
   // Text-Animation
   // -----------------------------
 
+  function createScrollTrigger(triggerElement, timeline) {
+    ScrollTrigger.create({
+      trigger: triggerElement,
+      markers: true,
+      start: "top bottom",
+      onLeaveBack: () => {
+        timeline.progress(0).pause();
+      },
+    });
+    ScrollTrigger.create({
+      trigger: triggerElement,
+      start: "top 80%",
+      onEnter: () => timeline.play(),
+    });
+    if (ScrollTrigger.isInViewport(triggerElement, 0.2)) {
+      timeline.play();
+    }
+  }
+
+  gsap.set("[text-split]", {
+    opacity: 1,
+  });
+
   document.querySelectorAll("[text-split]").forEach((el) => {
     new SplitType(el, {
       types: "words, chars",
@@ -327,16 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createScrollTrigger(el, tl);
   });
-
-  function createScrollTrigger(triggerElement, timeline) {
-    ScrollTrigger.create({
-      trigger: triggerElement,
-      start: "top bottom",
-      onLeaveBack: () => {
-        timeline.pro;
-      },
-    });
-  }
 
   // -----------------------------
   // GSAP media queries
@@ -432,6 +445,55 @@ document.addEventListener("DOMContentLoaded", () => {
     ScrollTrigger.refresh();
   });
 
+  // -------------------------
+  //   Text - Animation
+  // -------------------------
+
+  function setupTextAnimations() {
+    function createScrollTrigger(triggerElement, timeline) {
+      ScrollTrigger.create({
+        trigger: triggerElement,
+        markers: true,
+        start: "top bottom",
+        onLeaveBack: () => {
+          timeline.progress(0).pause();
+        },
+      });
+      ScrollTrigger.create({
+        trigger: triggerElement,
+        start: "top 80%",
+        onEnter: () => timeline.play(),
+      });
+      if (ScrollTrigger.isInViewport(triggerElement, 0.2)) {
+        timeline.play();
+      }
+    }
+
+    gsap.set("[text-split]", {
+      opacity: 1,
+    });
+
+    document.querySelectorAll("[text-split]").forEach((el) => {
+      new SplitType(el, {
+        types: "words, chars",
+        tagName: "span",
+      });
+    });
+
+    document.querySelectorAll("[words-rotate-in]").forEach((el) => {
+      let tl = gsap.timeline({ paused: true });
+      tl.from(el.querySelectorAll(".word"), {
+        opacity: 0,
+        yPercent: 100,
+        duration: 0.5,
+        ease: "back.out(2)",
+        stagger: { amount: 0.5 },
+      });
+
+      createScrollTrigger(el, tl);
+    });
+  }
+
   // -----------------------------
   // Load images
   // -----------------------------
@@ -440,6 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (imagesToLoad === 0) {
       render();
       setupScrollTrigger();
+      setupTextAnimations();
     }
   };
 
