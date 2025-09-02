@@ -20,6 +20,7 @@ body {
 @font-face {
   font-family: "Comfortaa";
   src: url("/src/assets/font/Comfortaa-SemiBold.ttf") format("truetype");
+  font-weight: 500;
   font-style: normal;
 }
 
@@ -120,7 +121,7 @@ p {
   font-weight: 500;
 }
 
-section {
+.first-set-section {
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -132,6 +133,10 @@ canvas {
   height: 100%;
   object-fit: cover;
   z-index: 1;
+}
+
+.cus-h1 {
+  font-weight: bolder;
 }
 
 .hero-content {
@@ -163,9 +168,6 @@ canvas {
     margin: 0;
     font-size: clamp(1.5rem, 5vw, 3rem);
     text-align: center;
-  }
-
-  p {
   }
 }
 
@@ -234,4 +236,70 @@ canvas {
     max-width: 100%;
     gap: 0.5rem;
   }
+}
+
+.wrapper {
+  position: relative;
+  overflow-x: hidden;
+}
+
+svg {
+  position: absolute;
+  top: 12em;
+  left: 10vw;
+  width: 50vw;
+
+  .mask {
+    width: 0;
+  }
+}
+
+.container {
+  display: flex;
+  width: 300vw;
+
+  .col {
+    display: flex;
+    gap: 3em;
+
+    p {
+      font-size: 0.8rem;
+    }
+  }
+
+  .second-set-section {
+    width: 100vw;
+    padding-top: 20vw;
+    padding-bottom: 20vw;
+    padding-left: 10vw;
+
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.2rem;
+      width: 35vw;
+    }
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      gap: 3em;
+      width: 100%;
+      height: 300px;
+      padding: 0;
+
+      li {
+        background: white;
+        border-radius: 0.3em;
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+.second-set-section {
+  height: 100vh;
 }
