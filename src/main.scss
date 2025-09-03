@@ -254,13 +254,13 @@ svg {
   }
 }
 
-.container {
+.wrapper .container {
   display: flex;
   width: 300vw;
 
   .col {
     display: flex;
-    gap: 3em;
+    gap: clamp(1rem, 4vw, 3rem);
 
     p {
       font-size: 0.8rem;
@@ -269,17 +269,17 @@ svg {
 
   .second-set-section {
     width: 100vw;
-    padding-top: 20vw;
-    padding-bottom: 20vw;
+    padding-top: clamp(10rem, 20vw, 20vw);
+    padding-bottom: clamp(10rem, 20vw, 20vw);
     padding-left: 10vw;
 
     h1 {
-      font-size: 3rem;
+      font-size: clamp(1.8rem, 4vw, 3rem);
       margin: 0;
     }
 
     p {
-      font-size: 1.2rem;
+      font-size: clamp(0.9rem, 2vw, 1.2rem);
       width: 35vw;
     }
 
@@ -303,3 +303,142 @@ svg {
 .second-set-section {
   height: 100vh;
 }
+
+@media (max-width: 768px) {
+  svg {
+    top: 8em;
+    left: 2vw;
+    width: 80vw;
+  }
+}
+
+@media (max-width: 480px) {
+  svg {
+    top: 6em;
+    width: 90vw;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1000px) {
+  svg {
+    top: 5rem;
+    left: 5vw;
+    width: 70vw;
+  }
+}
+
+.give-bg-one {
+  background-color: $one;
+}
+
+.give-bg-two {
+  background-color: $two;
+}
+
+.give-bg-three {
+  background-color: $three;
+}
+
+.give-bg-four {
+  background-color: $four;
+}
+
+//----------------------
+// Working-Tree
+//----------------------
+
+.container.work-container {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 100%;
+}
+
+.img-wrapper img {
+  display: block;
+}
+
+#smooth-content {
+  will-change: transform;
+}
+
+#smooth-wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+
+.spacer,
+.work-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.work-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stacked-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+}
+
+.card {
+  width: 100%;
+  height: 75vh;
+  flex-direction: row;
+  display: flex;
+  border-radius: 10px;
+  box-shadow: $outline 0 10px 20px;
+  background-color: $one;
+  margin-bottom: 75vh;
+}
+
+.card-content,
+.img-wrapper {
+  width: 50%;
+  height: 100%;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+.card-content h1 {
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  font-weight: 300;
+}
+
+.card-content p {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  width: 80%;
+  margin-top: 15px;
+}
+
+.img-wrapper {
+  border-radius: 0 10px 10px 0px;
+}
+
+.img-wrapper img {
+  border-radius: inherit;
+  will-change: clip-path;
+}
+
+// @media (max-with: 1200px) {
+//   .stacked-cards {
+//     width: clamp(85%, 4vw, 90%);
+//   }
+// }
+// @media (max-with: 580px) {
+//   .card {
+//     flex-direction: column-reverse;
+//   }
+// }
+// @media (max-with: 480px) {
+// }
