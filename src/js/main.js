@@ -414,45 +414,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cards.forEach((card, i) => {
     const img = card.querySelector(".img-wrapper img");
-    const text = card.querySelectorAll(".card-content h1, .card-content p");
+    const textEls = card.querySelectorAll(".card-content h1, .card-content p");
 
     gsap.to(card, {
-      scale: 0.8 + 0.2 * (i / (cards.length - 1)),
+      scale: 0.8 + 0.2 * (i / (cards.length - 1)), // this one
       ease: "none",
       scrollTrigger: {
         trigger: card,
-        start: `top+=${15 + 35 * i}`,
-        end: "+=" + window.innerHeight,
+        start: "top " + (15 + 35 * i), // this one
+        end: "bottom bottom",
+        endTrigger: "work-container",
         scrub: true,
         pin: card,
         pinSpacing: false,
         invalidateOnRefresh: true,
-        markers: { indent: 100 * i }, // debug
-        id: i + 1,
       },
     });
 
-    gsap.to(img, {
-      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-      autoAlpha: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: card,
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-      },
-    });
+    ScrollTrigger.create({
+      trigger: card,
+      start: "bottom bottom",
+      once: true,
+      onEnter: () => {
+        const tl = gsap.timeline();
 
-    gsap.to(text, {
-      y: -20,
-      autoAlpha: 1,
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: card,
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
+        tl.to(img, {
+          clipPath: "polygon(0 0,  0 100%, 100% 100%, 100% 0)",
+          autoAlpha: 1,
+          duration: 2,
+          delay: 0.2,
+          ease: "power2.out",
+        });
+
+        tl.to(
+          textEls,
+          {
+            y: -10,
+            autoAlpha: 1,
+            duration: 0.6,
+            ease: "elastic",
+            stagger: 0.4,
+          },
+          "-=1.5"
+        );
       },
     });
   });

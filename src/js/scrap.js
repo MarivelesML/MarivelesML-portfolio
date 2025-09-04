@@ -301,3 +301,27 @@
 //     ease: "elastic",
 //   }
 // );
+
+// gsap.to(img, {
+//   clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+//   autoAlpha: 1,
+//   ease: "power2.out",
+//   scrollTrigger: {
+//     trigger: card,
+//     start: "top center",
+//     end: "bottom center",
+//     scrub: true,
+//   },
+// });
+
+// gsap.to(text, {
+//   y: -20,
+//   autoAlpha: 1,
+//   stagger: 0.1,
+//   scrollTrigger: {
+//     trigger: card,
+//     start: "top center",
+//     end: "bottom center",
+//     scrub: true,
+//   },
+// });
