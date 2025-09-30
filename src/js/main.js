@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const nav = document.querySelector("nav");
   const header = document.querySelector(".header");
 
-  const frameCount = 209;
+  const frameCount = 280;
   const images = [];
   let imagesToLoad = frameCount;
   const imageSeq = { frame: 0 };
