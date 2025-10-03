@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const imageSeq = { frame: 0 };
 
   const currentFrame = (index) =>
-    `frames/frame_${(index + 1).toString().padStart(4, "0")}.jpg`;
+    `src/frames/frame_${(index + 1).toString().padStart(4, "0")}.jpg`;
 
   // -----------------------------
   // Canvas setup & resize
