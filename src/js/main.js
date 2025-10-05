@@ -39,21 +39,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = document.querySelectorAll(".cus-h1");
     startNav.addEventListener("click", () => {
       const originalSources = [
-        "assets/images/html.png",
-        "assets/images/javascript.png",
-        "assets/images/java.png",
-        "assets/images/css.png",
-        "assets/images/springboot.png",
-        "assets/images/bootstrap.png",
+        "src/assets/images/html.png",
+        "src/assets/images/javascript.png",
+        "src/assets/images/java.png",
+        "src/assets/images/css.png",
+        "src/assets/images/springboot.png",
+        "src/assets/images/bootstrap.png",
       ];
 
       const alternateSources = [
-        "assets/images/c++.png",
-        "assets/images/php.png",
-        "assets/images/python.png",
-        "assets/images/find.png",
-        "assets/images/file.png",
-        "assets/images/database.png",
+        "src/assets/images/c++.png",
+        "src/assets/images/php.png",
+        "src/assets/images/python.png",
+        "src/assets/images/find.png",
+        "src/assets/images/file.png",
+        "src/assets/images/database.png",
       ];
 
       gsap.to(imgs, {
