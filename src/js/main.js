@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "none",
       scrollTrigger: {
         trigger: card,
-        start: "top " + (15 + 35 * i), // this one
+        start: "top " + (5 + 30 * i), // this one
         end: "bottom bottom",
         endTrigger: "work-container",
         scrub: true,
