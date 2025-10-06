@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.body.style.zoom = "80%"; // values like "80%", "125%" etc.
   gsap.registerPlugin(ScrollTrigger);
 
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
