@@ -6,7 +6,7 @@ $outline: #120c2e !default;
 $navbar-height: 80px;
 $nav-header-gap: 40px;
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap";
 
 body {
   background-color: $one;
