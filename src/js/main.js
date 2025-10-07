@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+  gsap.registerPlugin(ScrollToPlugin, ScrollSmoother);
 
   ScrollSmoother.create({
     wrapper: "#smooth-wrapper",
@@ -56,10 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "src/assets/images/database.png",
       ];
 
+      // --- Animate out the current logos ---
       gsap.to(imgs, {
         opacity: 0,
-        ease: "power4.out",
         y: -50,
+        ease: "power4.out",
         stagger: { amount: 1, each: 0.2, from: 0 },
         onComplete: () => {
           imgs.forEach((img, i) => {
@@ -76,27 +77,36 @@ document.addEventListener("DOMContentLoaded", () => {
             ease: "back",
           });
 
+          document.querySelectorAll("[words-rotate-click]").forEach((el) => {
+            gsap.fromTo(
+              el.querySelectorAll(".word"),
+              {
+                opacity: 0,
+                yPercent: 100,
+              },
+              {
+                opacity: 1,
+                yPercent: 0,
+                duration: 0.5,
+                ease: "back.out(2)",
+                stagger: { amount: 0.5 },
+              }
+            );
+          });
           showingAlternate = !showingAlternate;
         },
       });
     });
+
     // Second-button
     aboutNav.addEventListener("click", () => {
-      document.querySelectorAll("[words-rotate-click]").forEach((el) => {
-        gsap.fromTo(
-          el.querySelectorAll(".word"),
-          {
-            opacity: 0,
-            yPercent: 100,
-          },
-          {
-            opacity: 1,
-            yPercent: 0,
-            duration: 0.5,
-            ease: "back.out(2)",
-            stagger: { amount: 0.5 },
-          }
-        );
+      const scrollHeight = document.documentElement.scrollHeight;
+      const viewportHeight = window.innerHeight;
+
+      gsap.to(window, {
+        duration: 30,
+        scrollTo: { y: scrollHeight - viewportHeight, autoKill: true },
+        ease: "none",
       });
     });
   }
@@ -261,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
         trigger: ".container",
         pin: true,
         scrub: 1,
-        end: "+=4000",
+        end: "+=4000", // adjust this
         //snap: 1 / (sections.length - 1),
       },
     });
@@ -452,7 +462,7 @@ document.addEventListener("DOMContentLoaded", () => {
             y: -10,
             autoAlpha: 1,
             duration: 0.6,
-            ease: "elastic",
+            ease: "expo.out",
             stagger: 0.4,
           },
           "-=1.5"

@@ -10780,11 +10780,22 @@ body {
   font-weight: 500;
   font-style: normal;
 }
+@font-face {
+  font-family: "BitCount";
+  src: url("assets/font/ndot-47-inspired-by-nothing.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
+}
+
+.cus-title-font {
+  font-family: "BitCount", sans-serif;
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
 }
 
 nav.navbar {
@@ -11188,4 +11199,12 @@ svg .mask {
   border-radius: inherit;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.svg-img {
+  height: 3.5vh;
+}
+
+.sec-svg-img {
+  height: 4.5vh;
 }

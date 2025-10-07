@@ -8,6 +8,9 @@ $nav-header-gap: 40px;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+// -----------------------------
+// Base Styles
+// -----------------------------
 body {
   background-color: $one;
   font-family: "Comfortaa", sans-serif;
@@ -24,6 +27,13 @@ body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: "BitCount";
+  src: url("assets/font/ndot-47-inspired-by-nothing.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
 @mixin cus-boderline {
   border: 1px solid $outline;
 }
@@ -35,6 +45,14 @@ body {
   scroll-behavior: smooth;
 }
 
+.cus-title-font {
+  font-family: "BitCount", sans-serif;
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
+}
+
+// -----------------------------
+// Navbar
+// -----------------------------
 nav.navbar {
   position: fixed;
   top: 0;
@@ -48,6 +66,7 @@ nav.navbar {
 
   .navbar-toggler {
     border: none;
+
     &:focus {
       outline: none;
       box-shadow: none;
@@ -70,6 +89,7 @@ nav.navbar {
 
   .navbar-nav {
     margin: 0 auto;
+
     .nav-item {
       .cus-btn-nav {
         background-color: $four;
@@ -97,6 +117,9 @@ nav.navbar {
   }
 }
 
+// -----------------------------
+// General Elements
+// -----------------------------
 img {
   max-width: 100%;
   height: 100%;
@@ -119,6 +142,9 @@ p {
   font-weight: 500;
 }
 
+// -----------------------------
+// Hero Section
+// -----------------------------
 .first-set-section {
   position: relative;
   width: 100vw;
@@ -167,7 +193,6 @@ canvas {
 
 .header-bg {
   border-radius: 0.5rem;
-  // background-color: rgba($one, 0.7);
   padding: 2rem 3rem;
   width: 80%;
   max-width: 800px;
@@ -190,6 +215,7 @@ canvas {
 
   .tech-logos {
     flex: 1;
+
     img {
       object-fit: contain;
     }
@@ -217,6 +243,9 @@ canvas {
   }
 }
 
+// -----------------------------
+// Responsive: Hero & SVG
+// -----------------------------
 @media (max-width: 1000px) {
   h1 {
     font-size: 2rem;
@@ -298,6 +327,9 @@ svg {
   height: 100vh;
 }
 
+// -----------------------------
+// Responsive: SVG
+// -----------------------------
 @media (max-width: 768px) {
   svg {
     top: 8em;
@@ -321,6 +353,9 @@ svg {
   }
 }
 
+// -----------------------------
+// Background Utilities
+// -----------------------------
 .give-bg-one {
   background-color: $one;
 }
@@ -337,10 +372,9 @@ svg {
   background-color: $four;
 }
 
-//----------------------
-// Working-Tree
-//----------------------
-
+// -----------------------------
+// Working-Tree (Cards Section)
+// -----------------------------
 .container.work-container {
   padding-left: 0;
   padding-right: 0;
@@ -458,15 +492,13 @@ svg {
   }
 }
 
-// @media (max-with: 1200px) {
-//   .stacked-cards {
-//     width: clamp(85%, 4vw, 90%);
-//   }
-// }
-// @media (max-with: 580px) {
-//   .card {
-//     flex-direction: column-reverse;
-//   }
-// }
-// @media (max-with: 480px) {
-// }
+// -----------------------------
+// SVG Images
+// -----------------------------
+.svg-img {
+  height: 3.5vh;
+}
+
+.sec-svg-img {
+  height: 4.5vh;
+}
