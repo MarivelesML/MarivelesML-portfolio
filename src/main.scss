@@ -241,7 +241,7 @@ svg {
   position: absolute;
   top: 12em;
   left: 10vw;
-  width: 50vw;
+  width: 60vw;
 
   .mask {
     width: 0;
@@ -302,14 +302,14 @@ svg {
   svg {
     top: 8em;
     left: 2vw;
-    width: 80vw;
+    width: 90vw;
   }
 }
 
 @media (max-width: 480px) {
   svg {
     top: 6em;
-    width: 90vw;
+    width: 100vw;
   }
 }
 
@@ -317,7 +317,7 @@ svg {
   svg {
     top: 5rem;
     left: 5vw;
-    width: 70vw;
+    width: 80vw;
   }
 }
 
