@@ -34,10 +34,73 @@ document.addEventListener("DOMContentLoaded", () => {
     let showingAlternate = false;
     const startNav = document.getElementById("start");
     const imgs = document.querySelectorAll(".tech-logos img");
-
     const aboutNav = document.getElementById("about");
     const title = document.querySelectorAll(".cus-h1");
+    const linkNav = document.getElementById("link");
+
+    // Easter Egg sequence tracking
+    let clickSequence = [];
+    const targetSequence = [
+      "start",
+      "start",
+      "start",
+      "link",
+      "about",
+      "about",
+    ];
+    let isTriggered = false;
+
+    // ---- Function: Show Easter Egg ----
+    function showEasterEgg() {
+      if (isTriggered) return;
+      isTriggered = true;
+
+      const gif = document.createElement("img");
+      gif.src = "src/assets/images/crazy-toothless.gif";
+      gif.alt = "Easter Dragon";
+      gif.style.position = "fixed";
+      gif.style.bottom = "20px";
+      gif.style.right = "20px";
+      gif.style.width = "fit - content";
+      gif.style.opacity = "0";
+      gif.style.transition = "opacity 0.5s ease, transform 1s ease";
+      gif.style.zIndex = "9999";
+      document.body.appendChild(gif);
+
+      // Fade + float in
+      requestAnimationFrame(() => {
+        gif.style.opacity = "1";
+        gif.style.transform = "translateY(0)";
+      });
+
+      // Fade out + float up
+      setTimeout(() => {
+        gif.style.opacity = "0";
+        gif.style.transform = "translateY(-30px)";
+        setTimeout(() => {
+          gif.remove();
+          isTriggered = false;
+        }, 1000);
+      }, 9000);
+    }
+
+    // ---- Function: Handle click sequence ----
+    function handleClick(id) {
+      clickSequence.push(id);
+      if (clickSequence.length > targetSequence.length) {
+        clickSequence.shift();
+      }
+
+      if (JSON.stringify(clickSequence) === JSON.stringify(targetSequence)) {
+        showEasterEgg();
+        clickSequence = [];
+      }
+    }
+
+    // ---- START button ----
     startNav.addEventListener("click", () => {
+      handleClick("start"); // record click for easter egg
+
       const originalSources = [
         "src/assets/images/html.png",
         "src/assets/images/javascript.png",
@@ -56,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "src/assets/images/database.png",
       ];
 
-      // --- Animate out the current logos ---
       gsap.to(imgs, {
         opacity: 0,
         y: -50,
@@ -80,10 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelectorAll("[words-rotate-click]").forEach((el) => {
             gsap.fromTo(
               el.querySelectorAll(".word"),
-              {
-                opacity: 0,
-                yPercent: 100,
-              },
+              { opacity: 0, yPercent: 100 },
               {
                 opacity: 1,
                 yPercent: 0,
@@ -98,8 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Second-button
+    // ---- ABOUT button ----
     aboutNav.addEventListener("click", () => {
+      handleClick("about"); // record click for easter egg
+
       const scrollHeight = document.documentElement.scrollHeight;
       const viewportHeight = window.innerHeight;
 
@@ -109,6 +170,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "none",
       });
     });
+
+    // ---- LINK button ----
+    linkNav.addEventListener("click", () => handleClick("link"));
   }
 
   buttonActions();
